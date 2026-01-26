@@ -76,9 +76,9 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
 
 ## Capabilities Generated
 
-- **Core Skills**: `lint-fix` (includes type checking), `build-project`, `build-container-image`, `update-deps`, `docs-gen-readme`, `security-scan`, `setup-dev-env`.
+- **Core Skills**: `lint-fix` (includes type checking), `build-project`, `build-container-image`, `update-deps`, `docs-gen-readme`, `security-scan`, `setup-dev-env`, `add-skill-templates`, `add-agent-templates`, `mend-agent-templates`.
 - **Test Skills**: `test-unit`, `test-integration`, `test-e2e`.
-- **Subagents**: `codebase-maintainer-agent`, `security-auditor-agent`, `qa-engineer-agent`.
+- **Subagents**: `codebase-maintainer-agent`, `security-auditor-agent`, `qa-engineer-agent`, `template-factory-agent`.
 
 ## References
 

@@ -14,8 +14,8 @@ This agent is responsible for the security posture of the codebase. It scans for
 
 <!-- SKILLS_START -->
 
-- **Security Scan**: runs `security-scan` to find vulnerabilities and secrets.
-- **Update**: runs `update-deps` to keep packages fresh.
+- **Security Scan**: Scan the codebase for vulnerabilities and secrets.
+- **Update Deps**: Update project dependencies to their latest compatible versions.
 <!-- SKILLS_END -->
 
 ## Instructions
