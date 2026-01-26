@@ -11,13 +11,16 @@ This skill runs the configured linters and type checkers for this codebase and a
 
 ## Commands
 
-| Project            | Working Directory | Type       | Command                    |
-| :----------------- | :---------------- | :--------- | :------------------------- |
-| {{ project_name }} | `{{ cwd }}`       | Lint       | `{{ lint_fix_command }}`   |
-| {{ project_name }} | `{{ cwd }}`       | Type Check | `{{ type_check_command }}` |
+| Order       | Component       | Path         | Layer       | Command         | Description       |
+| :---------- | :-------------- | :----------- | :---------- | :-------------- | :---------------- |
+| {{ order }} | {{ component }} | `{{ path }}` | {{ layer }} | `{{ command }}` | {{ description }} |
+
+## Guidance
+
+{{ guidance }}
 
 ## Instructions
 
 1.  **Execute Linting & Type Checking**: Run the commands in the **Commands** table sequentially.
-2.  **CWD Awareness**: For each command, ensure you are in the specified **Working Directory**.
+2.  **CWD Awareness**: For each command, ensure you are in the specified **Path**.
 3.  **Verify**: Check if any issues remain after running the fix commands. If issues persist, attempt to fix them manually or report them.

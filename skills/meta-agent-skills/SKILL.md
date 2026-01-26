@@ -25,7 +25,9 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
 2.  **Analyze Codebase**:
     - **Review Documentation**: Read `README.md`, `CONTRIBUTING.md`, `DEVELOPMENT.md`, or other relevant documentation to understand the project structure, development workflows, and any specific commands recommended for the codebase.
     - **Detect Sub-Projects**: Recursively search for "logical project boundaries" in sub-directories. Look for files like `package.json` (Node.js), `go.mod` (Go), `pyproject.toml` or `requirements.txt` (Python), `main.tf` or `*.tf` (Terraform), etc.
+    - **Detect Multi-Layered Builds**: Search for files that indicate a layered build or deployment process, such as `Dockerfile`, `docker-compose.yml`, `Earthfile`, `Tiltfile`, `Skaffold.yaml`, or `kustomization.yaml`.
     - **Map Tech Stack per Project**: For each detected sub-project, determine its specific tech stack and how to run builds, linters, and tests within its directory.
+    - **Analyze Layered Commands**: Categorize commands into logical layers (e.g., `App` for compilation, `Docker` for image building, `Infra` for deployment or local orchestration).
     - **Identify Test Types**: Look for `tests/unit`, `tests/integration`, `cypress`, `playwright`, etc., to distinguish between Unit, Integration, and E2E tests for each project.
     - **Identify Security Tools**: Check if `trivy`, `osv-scanner`, or other security tools are configured or available.
     - **Identify Setup Scripts**: Look for `pre-commit` config, `Makefile`, or setup scripts to include in `setup-dev-env`.
@@ -39,11 +41,18 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
     - Read the templates located in `assets/templates/skills/` and `assets/templates/agents/`.
     - **Instantiate Templates**:
       - For each skill template, populate the **Commands** table with the verified commands for all detected sub-projects.
-      - Each row in the table MUST include the `Project` name, `Working Directory` (relative to root), and the `Command` to execute.
-      - Ensure the **order of commands** is logical (e.g., dependencies first).
+      - **Build Separation**: Distinguish between project compilation (App layer) and container image building (Docker layer).
+        - Use `build-project` template for compilation/build commands (e.g., `npm run build`, `go build`).
+        - Use `build-container-image` template for containerization commands (e.g., `docker build`, `earthly --push +docker`).
+      - Each row in the table MUST include the `Order`, `Component`, `Path` (relative to root), `Layer` (e.g., App, Docker), `Command`, and `Description`.
+      - Ensure the **order of commands** is logical (e.g., compile app before building docker image).
     - **Write** the generated files to the target directory.
       - **Skills**: Each skill MUST be in its own folder nested under `meta-agent-skills/`, with the file itself named `SKILL.md` (e.g., `.claude/skills/meta-agent-skills/lint-fix/SKILL.md`).
       - **Agents**: Each agent MUST be in its own folder named `meta-agent-skills/` (e.g., `.claude/agents/meta-agent-skills/codebase-maintainer-agent.md`).
+    - **Bind Skills to Agents**:
+      - For each generated agent, identify the `skills` required from its template frontmatter.
+      - Synchronize the `Capabilities` section between `<!-- SKILLS_START -->` and `<!-- SKILLS_END -->` markers.
+      - Ensure each mentioned skill is linked to its respective `SKILL.md` file (e.g., `[lint-fix](../../skills/meta-agent-skills/lint-fix/SKILL.md)`).
     - _Note_: For `test-*` skills, only generate the ones that match the detected test types.
 
 5.  **Verify & Fix Generated Output**:
@@ -54,7 +63,7 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
 
 6.  **Execute Generated Skills & Agents**:
     - **Smoke Test**: Execute a subset of the generated skills to verify their real-world functionality.
-    - **Priority Skills**: Run `setup-dev-env` (if applicable), followed by `lint-fix` and `build-project`.
+    - **Priority Skills**: Run `setup-dev-env` (if applicable), followed by `lint-fix`, `build-project`, and `build-container-image`.
     - **Verify Subagents**: If a subagent was generated, consider invoking it for a simple query (e.g., "Analyze the current state of the codebase").
     - **Error Handling**: If execution fails, analyze the output, fix the generated skill/agent, and re-run until successful.
 
@@ -63,11 +72,11 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
     - Mention which stack and test types were detected.
     - Report the results of command verification (which commands are confirmed and which might need setup).
     - Report on the **Verification & Fix** results (e.g., "Verified all generated skills; fixed 1 path error in lint-fix").
-    - Report on the **Execution** results (e.g., "Successfully ran lint-fix and build-project skills").
+    - Report on the **Execution** results (e.g., "Successfully ran lint-fix, build-project, and build-container-image skills").
 
 ## Capabilities Generated
 
-- **Core Skills**: `lint-fix` (includes type checking), `build-project`, `update-deps`, `docs-gen-readme`, `security-scan`, `setup-dev-env`.
+- **Core Skills**: `lint-fix` (includes type checking), `build-project`, `build-container-image`, `update-deps`, `docs-gen-readme`, `security-scan`, `setup-dev-env`.
 - **Test Skills**: `test-unit`, `test-integration`, `test-e2e`.
 - **Subagents**: `codebase-maintainer-agent`, `security-auditor-agent`, `qa-engineer-agent`.
 

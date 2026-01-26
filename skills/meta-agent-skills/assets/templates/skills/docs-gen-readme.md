@@ -11,9 +11,13 @@ This skill updates the `README.md` file to reflect the current state of the proj
 
 ## Project Context
 
-| Project            | Working Directory | Install                 | Run                 | Test                 |
-| :----------------- | :---------------- | :---------------------- | :------------------ | :------------------- |
-| {{ project_name }} | `{{ cwd }}`       | `{{ install_command }}` | `{{ run_command }}` | `{{ test_command }}` |
+| Order       | Component       | Path         | Layer       | Install                 | Run                 | Test                 |
+| :---------- | :-------------- | :----------- | :---------- | :---------------------- | :------------------ | :------------------- |
+| {{ order }} | {{ component }} | `{{ path }}` | {{ layer }} | `{{ install_command }}` | `{{ run_command }}` | `{{ test_command }}` |
+
+## Guidance
+
+{{ guidance }}
 
 ## Instructions
 

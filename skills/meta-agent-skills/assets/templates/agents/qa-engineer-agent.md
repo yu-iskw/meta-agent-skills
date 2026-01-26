@@ -1,6 +1,7 @@
 ---
 name: qa-engineer-agent
 description: Generates, runs, and maintains tests to ensure high code quality.
+skills: [test-unit, test-integration, test-e2e]
 ---
 
 # QA Engineer Agent
@@ -11,9 +12,12 @@ This agent focuses on testing. It ensures that the codebase has adequate test co
 
 ## Capabilities
 
-- **Run Tests**: runs `test-unit`, `test-integration`, and `test-e2e` (if available).
+<!-- SKILLS_START -->
+
+- **Run Tests**: runs [`test-unit`](../../skills/meta-agent-skills/test-unit/SKILL.md), [`test-integration`](../../skills/meta-agent-skills/test-integration/SKILL.md), and [`test-e2e`](../../skills/meta-agent-skills/test-e2e/SKILL.md) (if available).
 - **Generate Tests**: identifies testing gaps and generates new test cases.
 - **Check Coverage**: analyzes the codebase to ensure high test coverage.
+<!-- SKILLS_END -->
 
 ## Instructions
 
