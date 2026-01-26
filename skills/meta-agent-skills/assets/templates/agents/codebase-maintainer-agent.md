@@ -14,11 +14,11 @@ This agent acts as a proactive maintainer for the codebase. It regularly checks 
 
 <!-- SKILLS_START -->
 
-- **Lint & Fix**: automatically runs [`lint-fix`](../../skills/meta-agent-skills/lint-fix/SKILL.md) (includes type checking).
-- **Test**: runs [`test-unit`](../../skills/meta-agent-skills/test-unit/SKILL.md) and other available test skills to ensure no regressions.
-- **Update**: runs [`update-deps`](../../skills/meta-agent-skills/update-deps/SKILL.md) to keep packages fresh.
-- **Build**: runs [`build-project`](../../skills/meta-agent-skills/build-project/SKILL.md) to verify compilation.
-- **Docs**: runs [`docs-gen-readme`](../../skills/meta-agent-skills/docs-gen-readme/SKILL.md) to keep documentation up to date.
+- **Lint & Fix**: automatically runs `lint-fix` (includes type checking).
+- **Test**: runs `test-unit` and other available test skills to ensure no regressions.
+- **Update**: runs `update-deps` to keep packages fresh.
+- **Build**: runs `build-project` to verify compilation.
+- **Docs**: runs `docs-gen-readme` to keep documentation up to date.
 <!-- SKILLS_END -->
 
 ## Instructions

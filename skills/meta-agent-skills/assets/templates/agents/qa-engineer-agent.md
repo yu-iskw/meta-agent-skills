@@ -14,7 +14,7 @@ This agent focuses on testing. It ensures that the codebase has adequate test co
 
 <!-- SKILLS_START -->
 
-- **Run Tests**: runs [`test-unit`](../../skills/meta-agent-skills/test-unit/SKILL.md), [`test-integration`](../../skills/meta-agent-skills/test-integration/SKILL.md), and [`test-e2e`](../../skills/meta-agent-skills/test-e2e/SKILL.md) (if available).
+- **Run Tests**: runs `test-unit`, `test-integration`, and `test-e2e` (if available).
 - **Generate Tests**: identifies testing gaps and generates new test cases.
 - **Check Coverage**: analyzes the codebase to ensure high test coverage.
 <!-- SKILLS_END -->
