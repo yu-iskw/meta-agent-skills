@@ -9,22 +9,16 @@ description: Scan the codebase for vulnerabilities and secrets.
 
 This skill scans the repository for security vulnerabilities (using `osv-scanner`, `trivy`, or similar) and accidentally committed secrets.
 
+## Commands
+
+| Project            | Working Directory | Scanner Type  | Command                       |
+| :----------------- | :---------------- | :------------ | :---------------------------- |
+| {{ project_name }} | `{{ cwd }}`       | Vulnerability | `{{ security_scan_command }}` |
+| {{ project_name }} | `{{ cwd }}`       | Secret        | `{{ secret_scan_command }}`   |
+
 ## Instructions
 
-1.  **Run Vulnerability Scanner**: Execute the configured security scanner.
-
-    ```bash
-    {{ security_scan_command }}
-    ```
-
-    _Note: If `osv-scanner` or `trivy` are not installed, suggest installation or use available alternatives._
-
-2.  **Run Secret Scanner**: Execute the secret scanning tool.
-
-    ```bash
-    {{ secret_scan_command }}
-    ```
-
-    _If no specific tool is configured, use `trivy fs . --scanners secret` or `grep` patterns for common keys._
-
+1.  **Run Scanners**: Run the commands in the **Commands** table sequentially.
+2.  **CWD Awareness**: For each command, ensure you are in the specified **Working Directory**.
 3.  **Report**: List any findings. Do NOT print the actual secrets in the output.
+    - _Note: If `osv-scanner` or `trivy` are not installed, suggest installation or use available alternatives._
