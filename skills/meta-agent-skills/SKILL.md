@@ -24,28 +24,46 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
 
 2.  **Analyze Codebase**:
     - **Review Documentation**: Read `README.md`, `CONTRIBUTING.md`, `DEVELOPMENT.md`, or other relevant documentation to understand the project structure, development workflows, and any specific commands recommended for the codebase.
-    - Identify the **Tech Stack**: Look for `pyproject.toml`, `package.json`, `go.mod`, etc., to determine how to run linters, builds, and updates.
-    - Identify **Test Types**: Look for `tests/unit`, `tests/integration`, `cypress`, `playwright`, etc., to distinguish between Unit, Integration, and E2E tests.
-    - Identify **Security Tools**: Check if `trivy`, `osv-scanner`, or other security tools are configured or available.
-    - Identify **Setup Scripts**: Look for `pre-commit` config, `Makefile`, or setup scripts to include in `setup-dev-env`.
+    - **Detect Sub-Projects**: Recursively search for "logical project boundaries" in sub-directories. Look for files like `package.json` (Node.js), `go.mod` (Go), `pyproject.toml` or `requirements.txt` (Python), `main.tf` or `*.tf` (Terraform), etc.
+    - **Map Tech Stack per Project**: For each detected sub-project, determine its specific tech stack and how to run builds, linters, and tests within its directory.
+    - **Identify Test Types**: Look for `tests/unit`, `tests/integration`, `cypress`, `playwright`, etc., to distinguish between Unit, Integration, and E2E tests for each project.
+    - **Identify Security Tools**: Check if `trivy`, `osv-scanner`, or other security tools are configured or available.
+    - **Identify Setup Scripts**: Look for `pre-commit` config, `Makefile`, or setup scripts to include in `setup-dev-env`.
 
 3.  **Verify Commands**:
-    - Before generating skills, proactively verify that the detected commands work in the current environment.
-    - Run `command --help`, `command --version`, or similar check for each primary command (e.g., `poetry --version`, `npm run --help`).
+    - Before generating skills, proactively verify that the detected commands work in their respective project environments.
+    - Run `command --help`, `command --version`, or similar check for each primary command in the correct working directory.
     - If a command fails or is missing, investigate alternatives or suggest installation in the final report.
 
 4.  **Generate Skills & Agents**:
     - Read the templates located in `assets/templates/skills/` and `assets/templates/agents/`.
-    - **Instantiate** each template by filling in the detected and verified commands (e.g., replace `{{ lint_fix_command }}` with `npm run lint:fix`).
+    - **Instantiate Templates**:
+      - For each skill template, populate the **Commands** table with the verified commands for all detected sub-projects.
+      - Each row in the table MUST include the `Project` name, `Working Directory` (relative to root), and the `Command` to execute.
+      - Ensure the **order of commands** is logical (e.g., dependencies first).
     - **Write** the generated files to the target directory.
       - **Skills**: Each skill MUST be in its own folder nested under `meta-agent-skills/`, with the file itself named `SKILL.md` (e.g., `.claude/skills/meta-agent-skills/lint-fix/SKILL.md`).
       - **Agents**: Each agent MUST be in its own folder named `meta-agent-skills/` (e.g., `.claude/agents/meta-agent-skills/codebase-maintainer-agent.md`).
     - _Note_: For `test-*` skills, only generate the ones that match the detected test types.
 
-5.  **Report**:
+5.  **Verify & Fix Generated Output**:
+    - **Audit**: Read a sample of the generated `SKILL.md` files (prioritize `lint-fix` and `build-project`).
+    - **Check for Placeholders**: Ensure no unpopulated templates like `{{ command }}` remain in the generated files.
+    - **Path Validation**: Verify that the `Working Directory` paths specified in the tables actually exist relative to the workspace root.
+    - **Immediate Remediation**: If errors, broken links, or missing information are found, use editing tools to fix the generated files immediately.
+
+6.  **Execute Generated Skills & Agents**:
+    - **Smoke Test**: Execute a subset of the generated skills to verify their real-world functionality.
+    - **Priority Skills**: Run `setup-dev-env` (if applicable), followed by `lint-fix` and `build-project`.
+    - **Verify Subagents**: If a subagent was generated, consider invoking it for a simple query (e.g., "Analyze the current state of the codebase").
+    - **Error Handling**: If execution fails, analyze the output, fix the generated skill/agent, and re-run until successful.
+
+7.  **Report**:
     - List the skills and agents created.
     - Mention which stack and test types were detected.
     - Report the results of command verification (which commands are confirmed and which might need setup).
+    - Report on the **Verification & Fix** results (e.g., "Verified all generated skills; fixed 1 path error in lint-fix").
+    - Report on the **Execution** results (e.g., "Successfully ran lint-fix and build-project skills").
 
 ## Capabilities Generated
 

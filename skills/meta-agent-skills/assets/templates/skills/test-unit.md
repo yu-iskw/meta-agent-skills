@@ -9,14 +9,16 @@ description: Run unit tests for the project.
 
 This skill executes unit tests to verify the correctness of individual components in the codebase.
 
+## Commands
+
+| Project            | Working Directory | Command                   |
+| :----------------- | :---------------- | :------------------------ |
+| {{ project_name }} | `{{ cwd }}`       | `{{ test_unit_command }}` |
+
 ## Instructions
 
-1.  **Run Unit Tests**: Execute the command to run unit tests.
-
-    ```bash
-    {{ test_unit_command }}
-    ```
-
-2.  **Analyze Results**:
-    - If tests pass, proceed.
-    - If tests fail, analyze the failure.
+1.  **Run Unit Tests**: Run the commands in the **Commands** table sequentially.
+2.  **CWD Awareness**: For each command, ensure you are in the specified **Working Directory**.
+3.  **Analyze Results**:
+    - If all tests pass, proceed.
+    - If any tests fail, analyze the failure and report it.
