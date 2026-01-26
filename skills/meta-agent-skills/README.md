@@ -51,6 +51,7 @@ The skill generates files in your agent's configuration directory (defaulting to
 - `codebase-maintainer-agent`: A general-purpose maintenance loop.
 - `security-auditor-agent`: Specialized in security reviews.
 - `qa-engineer-agent`: Specialized in testing.
+- `template-factory-agent`: Expert in framework factory management (creating/mending skills and agents).
 
 ### Troubleshooting
 
