@@ -46,7 +46,16 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
         - Use `build-container-image` template for containerization commands (e.g., `docker build`, `earthly --push +docker`).
       - Each row in the table MUST include the `Order`, `Component`, `Path` (relative to root), `Layer` (e.g., App, Docker), `Command`, and `Description`.
       - Ensure the **order of commands** is logical (e.g., compile app before building docker image).
-    - **Write** the generated files to the target directory.
+    - **Check & Merge Existing Files**:
+      - **Admire & Respect**: Before writing, check if the target file already exists. If it does, assume it contains valuable manual customizations or improvements.
+      - **Smart Merge**:
+        - Read the existing file content.
+        - Merge the newly generated content (commands, paths) with the existing content.
+        - **Preserve**: Keep manual additions (e.g., extra commands, custom descriptions, specific environment variables) that are not present in the standard template.
+        - **Update**: Only update parts that are clearly outdated or incorrect based on the current codebase analysis (e.g., new package manager, new test directory).
+        - **Do not overwrite** blindly.
+      - **New Files**: If the file does not exist, write the generated content as is.
+    - **Write** the final content to the target directory.
       - **Skills**: Each skill MUST be in its own folder nested under `meta-agent-skills/`, with the file itself named `SKILL.md` (e.g., `.claude/skills/meta-agent-skills/lint-fix/SKILL.md`).
       - **Agents**: Each agent MUST be in its own folder named `meta-agent-skills/` (e.g., `.claude/agents/meta-agent-skills/codebase-maintainer-agent.md`).
     - **Bind Skills to Agents**:
