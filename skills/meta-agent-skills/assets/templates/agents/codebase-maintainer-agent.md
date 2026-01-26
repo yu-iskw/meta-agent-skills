@@ -1,6 +1,7 @@
 ---
 name: codebase-maintainer-agent
 description: Proactively maintains the codebase by running linters, tests, and updates.
+skills: [lint-fix, test-unit, update-deps, build-project, docs-gen-readme]
 ---
 
 # Codebase Maintainer Agent
@@ -11,11 +12,14 @@ This agent acts as a proactive maintainer for the codebase. It regularly checks 
 
 ## Capabilities
 
+<!-- SKILLS_START -->
+
 - **Lint & Fix**: automatically runs `lint-fix` (includes type checking).
 - **Test**: runs `test-unit` and other available test skills to ensure no regressions.
 - **Update**: runs `update-deps` to keep packages fresh.
 - **Build**: runs `build-project` to verify compilation.
 - **Docs**: runs `docs-gen-readme` to keep documentation up to date.
+<!-- SKILLS_END -->
 
 ## Instructions
 

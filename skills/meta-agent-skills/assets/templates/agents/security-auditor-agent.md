@@ -1,6 +1,7 @@
 ---
 name: security-auditor-agent
 description: Periodically scans the codebase for vulnerabilities and security issues.
+skills: [security-scan, update-deps]
 ---
 
 # Security Auditor Agent
@@ -11,7 +12,11 @@ This agent is responsible for the security posture of the codebase. It scans for
 
 ## Capabilities
 
+<!-- SKILLS_START -->
+
 - **Security Scan**: runs `security-scan` to find vulnerabilities and secrets.
+- **Update**: runs `update-deps` to keep packages fresh.
+<!-- SKILLS_END -->
 
 ## Instructions
 

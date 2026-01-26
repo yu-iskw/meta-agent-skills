@@ -1,13 +1,13 @@
 ---
-name: test-unit
-description: Run unit tests for the project.
+name: build-container-image
+description: Build container images (e.g., Docker) for the project.
 ---
 
-# Test Unit
+# Build Container Image
 
 ## Purpose
 
-This skill executes unit tests to verify the correctness of individual components in the codebase.
+This skill builds container images for the project to ensure they can be packaged and deployed correctly.
 
 ## Commands
 
@@ -21,8 +21,6 @@ This skill executes unit tests to verify the correctness of individual component
 
 ## Instructions
 
-1.  **Run Unit Tests**: Run the commands in the **Commands** table sequentially.
+1.  **Build Container Images**: Run the commands in the **Commands** table sequentially.
 2.  **CWD Awareness**: For each command, ensure you are in the specified **Path**.
-3.  **Analyze Results**:
-    - If all tests pass, proceed.
-    - If any tests fail, analyze the failure and report it.
+3.  **Check Output**: Verify that each image build completed successfully.
