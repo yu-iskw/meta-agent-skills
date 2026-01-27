@@ -23,6 +23,7 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
     - **Default**: If ambiguous or multiple exist, prioritize `.claude/skills/meta-agent-skills` (and `.claude/agents/meta-agent-skills`) as the shared standard for the organization.
 
 2.  **Analyze Codebase**:
+    - **Interactive Fallback**: If the codebase is empty or no tech stack is detected (e.g., starting from scratch), **ask the user** for the desired technology stack (e.g., "I see this is an empty repo. What tech stack (Language, Framework, Build Tool) would you like to use?").
     - **Review Documentation**: Read `README.md`, `CONTRIBUTING.md`, `DEVELOPMENT.md`, or other relevant documentation to understand the project structure, development workflows, and any specific commands recommended for the codebase.
     - **Detect Sub-Projects**: Recursively search for "logical project boundaries" in sub-directories. Look for files like `package.json` (Node.js), `go.mod` (Go), `pyproject.toml` or `requirements.txt` (Python), `main.tf` or `*.tf` (Terraform), etc.
     - **Detect Multi-Layered Builds**: Search for files that indicate a layered build or deployment process, such as `Dockerfile`, `docker-compose.yml`, `Earthfile`, `Tiltfile`, `Skaffold.yaml`, or `kustomization.yaml`.
@@ -46,7 +47,16 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
         - Use `build-container-image` template for containerization commands (e.g., `docker build`, `earthly --push +docker`).
       - Each row in the table MUST include the `Order`, `Component`, `Path` (relative to root), `Layer` (e.g., App, Docker), `Command`, and `Description`.
       - Ensure the **order of commands** is logical (e.g., compile app before building docker image).
-    - **Write** the generated files to the target directory.
+    - **Check & Merge Existing Files**:
+      - **Admire & Respect**: Before writing, check if the target file already exists. If it does, assume it contains valuable manual customizations or improvements.
+      - **Smart Merge**:
+        - Read the existing file content.
+        - Merge the newly generated content (commands, paths) with the existing content.
+        - **Preserve**: Keep manual additions (e.g., extra commands, custom descriptions, specific environment variables) that are not present in the standard template.
+        - **Update**: Only update parts that are clearly outdated or incorrect based on the current codebase analysis (e.g., new package manager, new test directory).
+        - **Do not overwrite** blindly.
+      - **New Files**: If the file does not exist, write the generated content as is.
+    - **Write** the final content to the target directory.
       - **Skills**: Each skill MUST be in its own folder nested under `meta-agent-skills/`, with the file itself named `SKILL.md` (e.g., `.claude/skills/meta-agent-skills/lint-fix/SKILL.md`).
       - **Agents**: Each agent MUST be in its own folder named `meta-agent-skills/` (e.g., `.claude/agents/meta-agent-skills/codebase-maintainer-agent.md`).
     - **Bind Skills to Agents**:
