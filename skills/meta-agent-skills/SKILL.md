@@ -23,6 +23,7 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
     - **Default**: If ambiguous or multiple exist, prioritize `.claude/skills/meta-agent-skills` (and `.claude/agents/meta-agent-skills`) as the shared standard for the organization.
 
 2.  **Analyze Codebase**:
+    - **Interactive Fallback**: If the codebase is empty or no tech stack is detected (e.g., starting from scratch), **ask the user** for the desired technology stack (e.g., "I see this is an empty repo. What tech stack (Language, Framework, Build Tool) would you like to use?").
     - **Review Documentation**: Read `README.md`, `CONTRIBUTING.md`, `DEVELOPMENT.md`, or other relevant documentation to understand the project structure, development workflows, and any specific commands recommended for the codebase.
     - **Detect Sub-Projects**: Recursively search for "logical project boundaries" in sub-directories. Look for files like `package.json` (Node.js), `go.mod` (Go), `pyproject.toml` or `requirements.txt` (Python), `main.tf` or `*.tf` (Terraform), etc.
     - **Detect Multi-Layered Builds**: Search for files that indicate a layered build or deployment process, such as `Dockerfile`, `docker-compose.yml`, `Earthfile`, `Tiltfile`, `Skaffold.yaml`, or `kustomization.yaml`.
