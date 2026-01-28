@@ -43,6 +43,7 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
 
 4.  **Generate Skills & Agents**:
     - Read the templates located in `assets/templates/skills/` and `assets/templates/agents/`.
+    - **Strict Policy**: You MUST NOT generate any subagent or Agent Skill if its corresponding template does not exist in `assets/templates/agents/` or `assets/templates/skills/`.
     - **Instantiate Templates**:
       - For each skill template, populate the **Commands** table with the verified commands for all detected sub-projects.
       - **Build Separation**: Distinguish between project compilation (App layer) and container image building (Docker layer).
@@ -68,6 +69,7 @@ This skill serves as a "Meta-Skill" that bootstraps the Agentic Makefile environ
 
 5.  **Verify & Fix Generated Output**:
     - **Audit**: Read a sample of the generated `SKILL.md` files (prioritize `lint-fix` and `build-project`).
+    - **Verify Templates**: Verify that every generated subagent and Agent Skill has a corresponding template in the assets directory. If you find any generated file that does not have a corresponding template, you MUST delete it.
     - **Check for Placeholders**: Ensure no unpopulated templates like `{{ command }}` remain in the generated files.
     - **Path Validation**: Verify that the `Working Directory` paths specified in the tables actually exist relative to the workspace root.
     - **Immediate Remediation**: If errors, broken links, or missing information are found, use editing tools to fix the generated files immediately.
