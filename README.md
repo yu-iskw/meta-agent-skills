@@ -8,6 +8,8 @@ This repository provides a framework and set of specialized skills for AI coding
 
 | Name              | Description                                                                                                        | Link                                                                   |
 | :---------------- | :----------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
+| mend-agent-skills | Verifies and updates skill commands to match the codebase.                                                         | [skills/mend-agent-skills/SKILL.md](skills/mend-agent-skills/SKILL.md) |
+| mend-subagents    | Synchronizes agents with available skills and suggests bindings.                                                   | [skills/mend-subagents/SKILL.md](skills/mend-subagents/SKILL.md)       |
 | meta-agent-skills | Proactively analyzes the codebase and generates specialized subagents and skills to standardize agentic workflows. | [skills/meta-agent-skills/SKILL.md](skills/meta-agent-skills/SKILL.md) |
 
 <!-- REUSABLE_SKILLS_END -->
